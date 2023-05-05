@@ -16,6 +16,6 @@ app.use('/products', productsRouter);
 
 app.use('/carts', cartRouter);
 
-app.listen(8082, ()=>{
-    console.log('🚀 Server listening on port 8082');
+app.listen(8080, ()=>{
+    console.log('🚀 Server listening on port 8080');
 });
