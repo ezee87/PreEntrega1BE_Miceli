@@ -73,16 +73,16 @@ export const saveProductToCart = async (idCart, idProd) =>{
                 if (prodExistant) {
                     const restCarts = carts.filter(cart => cart.id != idCart)
                     if (cart.products.length) {
-                        const productMod = {
+                        const newProduct = {
                             id: cart.id,
                             products: [{
                                 id: cart.products[0].id,
                                 quantity: cart.products[0].quantity + 1
                             }]
                         }
-                        restCarts.push(productMod)
+                        restCarts.push(newProduct)
                         await fs.promises.writeFile(pathFile, JSON.stringify(restCarts))
-                        return productMod
+                        return newProduct
                     } else {
                         cart.products.push({ id: prodExistant.id, quantity: 1 })
                         restCarts.push(cart)
@@ -91,13 +91,13 @@ export const saveProductToCart = async (idCart, idProd) =>{
                     }
 
                 } else {
-                    return console.log('Product not found.')
+                    return console.log('El producto no se pudo encontrar')
                 }
             } else {
-                return console.log('There are no products.')
+                return console.log('No hay productos')
             }
         } else {
-            return console.log(`The cart ID: ${idCart} does not exist.`)
+            return console.log(`El carrito buscado no existe.`)
         }
     } catch (error) {
         return console.log(error)
