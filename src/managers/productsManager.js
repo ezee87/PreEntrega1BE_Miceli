@@ -59,9 +59,8 @@ export const updateProduct = async(obj, id)=>{
     try {
         const productsFile = await getAllProducts();
         const index = productsFile.findIndex(prod => prod.id === id);
-        console.log('index:::', index);
         if(index === -1){
-            throw new Error(`Id ${id} not found`)
+            throw new Error(`El producto ${id} no se encontro`)
         } else {
             productsFile[index] = { ...obj, id }
         }
@@ -78,7 +77,7 @@ export const deleteProductById = async(id)=>{
             const newArray = productsFile.filter(prod => prod.id !== id);
             await fs.promises.writeFile(pathFile, JSON.stringify(newArray));
         } else {
-            throw new Error(`Product id: ${id} not found`);
+            throw new Error(`El producto ${id} no se encuentra`);
         }
     } catch (error) {
         console.log(error);

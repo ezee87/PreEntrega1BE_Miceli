@@ -89,7 +89,7 @@ export const getCartById = async (id) => {
   
       const products = await getProducts();
       if (!products) {
-        console.log('No hay productos.');
+        console.log('No se encontraron productos.');
         return;
       }
   

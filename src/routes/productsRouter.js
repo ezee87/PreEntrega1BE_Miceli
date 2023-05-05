@@ -7,7 +7,7 @@ import { createProduct,
     getAllProducts, 
     getProductById 
 } from "../managers/productsManager.js";
-import { uploader } from "../middlewares/multer.js";
+
 import { productValidator } from "../middlewares/productValidator.js";
 
 router.get('/', async(req, res) => {
@@ -25,48 +25,18 @@ router.get('/:id', async(req, res) => {
         const { id } = req.params;
         const product = await getProductById(Number(id));
         if(product){
-            res.status(200).json({ message: 'Product found', product })
-            // res.status(200).json(product)
+            res.status(200).json({product })
         } else {
-            res.status(400).send('product not found')
+            res.status(400).send('No se pudo encontrar el producto')
         }
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 });
-
-/* ------------------------------ con req.query ----------------------------- */
-router.get('/', async(req, res) => {
-    try {
-        const { id } = req.query;
-        const product = await getProductById(Number(id));
-        if(product){
-            res.status(200).json({ message: 'Product found', product })
-            // res.status(200).json(product)
-        } else {
-            res.status(400).send('product not found')
-        }
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-});
-/* ----------------------------------- -- ----------------------------------- */
 
 router.post('/', productValidator, async (req, res)=>{
     try {
         const product = req.body;
-        const newProduct = await createProduct(product);
-        res.json(newProduct);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-});
-
-router.post('/test-multer', uploader.single('photo'), async (req, res)=>{
-    try {
-        console.log(req.file);
-        const product = req.body;
-        product.photo = req.file.path;
         const newProduct = await createProduct(product);
         res.json(newProduct);
     } catch (error) {
@@ -81,9 +51,9 @@ router.put('/:id', async(req, res) => {
         const productFile = await getProductById(Number(id));
         if(productFile){
             await updateProduct(product, Number(id));
-            res.send(`product updated successfully!`);
+            res.send(`El producto se actualizo correctamente`);
         } else {
-            res.status(404).send('product not found')
+            res.status(404).send('No se pudo encontrar el producto')
         }
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -97,9 +67,9 @@ router.delete('/:id', async(req, res)=>{
         const products = await getAllProducts();
         if(products.length > 0){
             await deleteProductById(Number(id));
-            res.send(`product id: ${id} deleted successfully`);
+            res.send(`El producto ${id} fue eliminado correctamente`);
         } else {
-            res.send(`product id: ${id} not found`);
+            res.send(`El producto ${id} no se encontro`);
         }
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -110,7 +80,7 @@ router.delete('/:id', async(req, res)=>{
 router.delete('/', async(req, res)=>{
     try {
         await deleteAllProducts();
-        res.send('products deleted successfully')
+        res.send('Se eliminaron todos los productos correctamente')
     } catch (error) {
         res.status(404).json({ message: error.message });
 

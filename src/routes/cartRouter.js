@@ -50,7 +50,7 @@ router.get("/:idCart", async (req, res) => {
     if (cart) {
       res.status(200).json(cart);
     } else {
-      res.status(400).send("cart not found");
+      res.status(400).send("No se pudo encontrar el carrito");
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
