@@ -20,13 +20,13 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post('/:cid/product/:pid', async (req, res) => {
+router.post('/:idCart/product/:idProd', async (req, res) => {
   try {
-      const {cid, pid} = req.params;
-      await getCartById(cid)
-      await getProductById(pid)
-      await saveProductToCart(cid, pid)
-      res.status(200).send(`Producto ID: ${pid} agregado el carrito ID: ${cid}.`)
+      const {idCart, idProd} = req.params;
+      await getCartById(idCart)
+      await getProductById(idProd)
+      await saveProductToCart(Number(idCart), Number(idProd))
+      res.status(200).send(`Se agrego correctamente el producto: ${idProd} al carrito: ${idCart}.`)
 
   } catch (error) {
       res.status(400).json({ message: error.message })

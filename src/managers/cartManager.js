@@ -28,19 +28,6 @@ export const getAllCarts = async() =>{
     }
 }
 
-export const getCartById =async(id)=>{
-    try {
-        const carts = await getAllCarts();
-        const cart = carts.find((cart) => cart.id === id);
-        if(cart) {
-            return cart
-        }
-        return false;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export const createCart = async(obj)=>{
     try {
         const cart = {
@@ -62,44 +49,80 @@ const getProducts = async() =>{
     return productsJSON
 }
 
-export const saveProductToCart = async (idCart, idProd) =>{
+export const getCartById = async (id) => {
     try {
-        const carts = await getAllCarts()
-            const cart = carts.find(carts => carts.id == idCart)
-        if (cart) {
-            const products = await getProducts()
-            if (products) {
-                const prodExistant = products.find(product => product.id == idProd)
-                if (prodExistant) {
-                    const restCarts = carts.filter(cart => cart.id != idCart)
-                    if (cart.products.length) {
-                        const newProduct = {
-                            id: cart.id,
-                            products: [{
-                                id: cart.products[0].id,
-                                quantity: cart.products[0].quantity + 1
-                            }]
-                        }
-                        restCarts.push(newProduct)
-                        await fs.promises.writeFile(pathFile, JSON.stringify(restCarts))
-                        return newProduct
-                    } else {
-                        cart.products.push({ id: prodExistant.id, quantity: 1 })
-                        restCarts.push(cart)
-                        await fs.promises.writeFile(pathFile, JSON.stringify(restCarts))
-                        return cart
-                    }
-
-                } else {
-                    return console.log('El producto no se pudo encontrar')
-                }
-            } else {
-                return console.log('No hay productos')
-            }
-        } else {
-            return console.log(`El carrito buscado no existe.`)
-        }
+      const carts = await getAllCarts();
+      const cart = carts.find((cart) => cart.id === parseInt(id));
+      if (cart) {
+        return cart;
+      }
+      return null;
     } catch (error) {
-        return console.log(error)
+      console.log(error);
+      throw error;
     }
-}
+  };
+  
+  export const saveProductToCart = async (idCart, idProd) => {
+    try {
+      const carts = await getAllCarts();
+  
+      let cart;
+      try {
+        cart = await getCartById(idCart);
+        console.log('cart:', cart);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+  
+      if (!cart) {
+        console.log(`El carrito ${idCart} no existe.`);
+        return;
+      }
+  
+      const productsFileExists = fs.existsSync(pathProductManager);
+      if (!productsFileExists) {
+        console.log('El archivo products.json no existe.');
+        return;
+      }
+  
+      const products = await getProducts();
+      if (!products) {
+        console.log('No hay productos.');
+        return;
+      }
+  
+      const product = products.find(product => product.id === parseInt(idProd));
+      if (!product) {
+        console.log(`El producto ${idProd} no existe.`);
+        return;
+      }
+  
+      const existingProduct = cart.products.find(product => product.id === parseInt(idProd));
+      
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        cart.products.push({ id: idProd, quantity: 1 });
+      }
+      
+      const updatedCarts = carts.map(c => {
+        if (c.id === idCart) {
+          return cart;
+        } else {
+          return c;
+        }
+      });
+      
+      await fs.promises.writeFile(pathFile, JSON.stringify(updatedCarts));
+      
+      return cart;
+      
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+
+  }
+    

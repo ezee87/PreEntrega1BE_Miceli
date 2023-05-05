@@ -1,82 +1,102 @@
 [
     {
         "id": 1,
-        "productName": "Picador 1",
+        "title": "Picador 1",
         "description": "Picador de 3 piezas",
         "price": 3300,
-        "imgURL": "sin imagen",
-        "stock": 7
+        "category": "categoria 2",
+        "stock": 7,
+        "code": 123,
+        "status": true
     },
     {
         "id": 2,
-        "productName": "Picador 2",
+        "title": "Picador 2",
         "description": "Picador de 2 piezas",
         "price": 20000,
-        "imgURL": "sin imagen",
-        "stock": 15
+        "category": "categoria 2",
+        "stock": 15,
+        "code": 123,
+        "status": true
     },
     {
         "id": 3,
-        "productName": "Picador 3",
+        "title": "Picador 3",
         "description": "Picador de 3 piezas",
         "price": 698,
-        "imgURL": "sin imagen",
-        "stock": 3
+        "category": "categoria 2",
+        "stock": 3,
+        "code": 123,
+        "status": true
     },
     {
         "id": 4,
-        "productName": "Picador 4",
+        "title": "Picador 4",
         "description": "Picador de 4 piezas",
         "price": 1330,
-        "imgURL": "sin imagen",
-        "stock": 25
+        "category": "categoria 2",
+        "stock": 25,
+        "code": 123,
+        "status": true
     },
     {
         "id": 5,
-        "productName": "Picador 5",
+        "title": "Picador 5",
         "description": "Picador de 2 piezas",
         "price": 1699,
-        "imgURL": "sin imagen",
-        "stock": 12
+        "category": "categoria 2",
+        "stock": 12,
+        "code": 123,
+        "status": true
     },
     {
         "id": 6,
-        "productName": "Picador 6",
+        "title": "Picador 6",
         "description": "Picador de 3 piezas",
         "price": 1800,
-        "imgURL": "sin imagen",
-        "stock": 30
+        "category": "categoria 2",
+        "stock": 30,
+        "code": 123,
+        "status": true
     },
     {
         "id": 7,
-        "productName": "Picador 7",
+        "title": "Picador 7",
         "description": "Picador de 4 piezas",
         "price": 4500,
-        "imgURL": "sin imagen",
-        "stock": 2
+        "category": "categoria 2",
+        "stock": 2,
+        "code": 123,
+        "status": true
     },
     {
         "id": 8,
-        "productName": "Picador 8",
+        "title": "Picador 8",
         "description": "Picador de 6 piezas",
         "price": 26900,
-        "imgURL": "sin imagen",
-        "stock": 1
+        "category": "categoria 2",
+        "stock": 1,
+        "code": 123,
+        "status": true
     },
     {
         "id": 9,
-        "productName": "Picador 9",
+        "title": "Picador 9",
         "description": "Picador de 2 piezas",
         "price": 2200,
-        "imgURL": "sin imagen",
-        "stock": 8
+        "category": "categoria 2",
+        "stock": 8,
+        "code": 123,
+        "status": true
     },
     {
-        "productName": "Picador 11",
+        "id": 10,
+        "title": "Picador 10",
         "description": "Picador de 4 piezas",
         "price": 10000,
-        "imgURL": "sin imagen",
+        "category": "categoria 2",
         "stock": 10,
-        "id": 10
+        "code": 123,
+        "status": true
     }
 ]
